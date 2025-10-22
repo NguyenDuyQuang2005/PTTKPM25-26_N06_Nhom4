@@ -1,0 +1,58 @@
+/* ===== Product Actions ===== */
+.product-actionss {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+  width: 100%;
+  padding: 0 10px; /* giữ nút không dính mép */
+  box-sizing: border-box;
+}
+
+/* Nút chung */
+.product-actionss .btn {
+  margin: 0 !important;      
+  flex: 1;             
+  padding: 10px 0;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Xem chi tiết */
+.product-actionss .btn-primary {
+  background: linear-gradient(135deg, #4a90e2, #357ab8);
+}
+
+.product-actionss .btn-primary:hover {
+  background: linear-gradient(135deg, #357ab8, #2e6ca3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(53, 122, 184, 0.25);
+}
+
+/* Thêm vào giỏ */
+.product-actionss .btn-secondary {
+  background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.product-actionss .btn-secondary:hover {
+  background: linear-gradient(135deg, #27ae60, #1e8449);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(39, 174, 96, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .product-actionss {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

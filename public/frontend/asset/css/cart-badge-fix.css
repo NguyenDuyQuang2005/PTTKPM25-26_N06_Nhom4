@@ -1,0 +1,206 @@
+/* ========================================
+   CART BADGE FIX STYLES
+   ======================================== */
+
+/* Fix cho cart badge - đảm bảo hiển thị đúng */
+.others li.cart-icon,
+.others > ul > li.cart-icon {
+    position: relative;
+}
+
+.others li.cart-icon > a,
+.others li.cart-icon a {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    font-size: 16px;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.others li.cart-icon > a:hover,
+.others li.cart-icon a:hover {
+    background: var(--secondary-color);
+    color: var(--white);
+    box-shadow: 0 6px 20px rgba(52, 152, 219, 0.3);
+    border-color: var(--secondary-color);
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--accent-color);
+    color: var(--white);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+    z-index: 10;
+    min-width: 20px;
+    min-height: 20px;
+}
+
+/* Animation cho cart badge */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Badge khi có số lượng lớn */
+.cart-badge.large {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+    top: -6px;
+    right: -6px;
+}
+
+/* Badge khi có số lượng rất lớn */
+.cart-badge.xlarge {
+    width: 28px;
+    height: 28px;
+    font-size: 10px;
+    top: -7px;
+    right: -7px;
+    border-radius: 14px;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+    .others li.cart-icon > a,
+    .others li.cart-icon a {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .cart-badge {
+        top: -3px;
+        right: -3px;
+        width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+    
+    .cart-badge.large {
+        width: 20px;
+        height: 20px;
+        font-size: 9px;
+    }
+    
+    .cart-badge.xlarge {
+        width: 22px;
+        height: 22px;
+        font-size: 8px;
+        border-radius: 11px;
+    }
+}
+
+@media (max-width: 576px) {
+    .others li.cart-icon > a,
+    .others li.cart-icon a {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+    
+    .cart-badge {
+        top: 3px;
+        right: 4px;
+        width: 14px;
+        height: 14px;
+        font-size: 9px;
+    }
+    
+    .cart-badge.large {
+        width: 16px;
+        height: 16px;
+        font-size: 8px;
+    }
+    
+    .cart-badge.xlarge {
+        width: 18px;
+        height: 18px;
+        font-size: 7px;
+        border-radius: 9px;
+    }
+}
+
+/* Fix cho trường hợp badge bị ẩn */
+.cart-badge.hidden {
+    display: none;
+}
+
+/* Animation khi thêm sản phẩm vào giỏ */
+.cart-badge.add-animation {
+    animation: addToCart 0.6s ease-out;
+}
+
+@keyframes addToCart {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+        background: var(--success-color);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Fix cho menu favorites count */
+.favorites-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--accent-color);
+    color: var(--white);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    z-index: 10;
+    min-width: 18px;
+    min-height: 18px;
+}
+
+/* Responsive cho favorites count */
+@media (max-width: 768px) {
+    .favorites-count {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 576px) {
+    .favorites-count {
+        width: 14px;
+        height: 14px;
+        font-size: 8px;
+    }
+}
