@@ -28,7 +28,7 @@ class productController extends Controller
         ]);
     }
       public function list_product(Request $request){
-        $product = product::latest()->paginate(8);
+        $product = product::latest()->paginate(4);
 
         return view('admin/product/list',[
             'title' => 'Danh Sách Sản Phẩm',

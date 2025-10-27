@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class product extends Model
 {
+    protected $fillable = [
+        'name',
+        'masanpham',
+        'price_normal',
+        'price_sale',
+        'description',
+        'content',
+        'image',
+        'images',
+    ];
+
     // Quan hệ với Comment
     public function comments()
     {

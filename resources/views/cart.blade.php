@@ -36,50 +36,44 @@
                     </thead>
                     <tbody>
                         @if(isset($products) && count($products) > 0)
-
                             @foreach($products as $product)
                                 @php
-                                    $qty = $cart[$product->id] ?? 0;
+                                    $qty = $cart[$product->id] ?? 1;
                                     $subtotal = $product->price_sale * $qty;
                                 @endphp
-                                <tr>
+                                <tr data-id="{{ $product->id }}">
                                     <td>
                                         <img src="{{ asset($product->image) }}" alt="" style="width:80px">
                                         <p>{{ $product->name }}</p>
                                     </td>
                                     <td>{{ number_format($product->price_normal) }}₫</td>
                                     <td>{{ number_format($product->price_sale) }}₫</td>
-                                    <td>{{ $qty }}</td>
-                                    <td>{{ number_format($subtotal) }}₫</td>
+                                    <td>
+                                        <div class="qty-control">
+                                           <button type="button" class="qty-decrease" data-id="{{ $product->id }}" style="padding:2px;">−</button> 
+                                            <input type="number" class="qty-input" data-id="{{ $product->id }}" value="{{ $qty }}" min="1">
+                                            <button type="button" class="qty-increase" data-id="{{ $product->id }}" style="padding:2px;">+</button>
+                                        </div>
+                                    </td>
+                                    <td class="subtotal">{{ number_format($subtotal) }}₫</td>
                                     <td><a href="/cart/remove/{{ $product->id }}">X</a></td>
                                 </tr>
-                                <input type="hidden" name="product_id[]" value="{{ $product->id }}">
-                                <input type="hidden" name="qty[]" value="{{ $qty }}">
                             @endforeach
                         @endif
                     </tbody>
+
                 </table>
             </section>
             <aside class="cart-summary">
                 <h3>Tóm tắt đơn hàng</h3>
-                @php
-                    $total_qty = 0;
-                    $total_amount = 0;
-                    if(isset($products) && isset($cart)) {
-                        foreach($products as $product) {
-                            $qty = $cart[$product->id] ?? 0;
-                            $total_qty += $qty;
-                            $total_amount += $product->price_sale * $qty;
-                        }
-                    }
-                @endphp
+
                 <div class="summary-row">
                     <span>Số lượng</span>
-                    <strong>{{ $total_qty }}</strong>
+                    <strong id="cartQuantity">{{ $total_qty }}</strong>
                 </div>
                 <div class="summary-row">
                     <span>Tạm tính</span>
-                    <strong>{{ number_format($total_amount) }}₫</strong>
+                    <strong id="cartSubtotal">{{ number_format($total_amount) }}₫</strong>
                 </div>
                 <div class="summary-row">
                     <span>Phí vận chuyển</span>
@@ -87,7 +81,7 @@
                 </div>
                 <div class="summary-row">
                     <span>Thành tiền</span>
-                    <strong>{{ number_format($total_amount) }}₫</strong>
+                    <strong id="cartTotal">{{ number_format($total_amount) }}₫</strong>
                 </div>
                 <div class="cart-actions">
                     <button type="submit" class="btn">Thanh toán</button>
@@ -108,6 +102,69 @@
         }
     }, 3500);
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const csrf = '{{ csrf_token() }}';
+
+    document.querySelectorAll('.qty-decrease').forEach(btn => {
+        btn.addEventListener('click', () => changeQty(btn, -1));
+    });
+    document.querySelectorAll('.qty-increase').forEach(btn => {
+        btn.addEventListener('click', () => changeQty(btn, 1));
+    });
+    document.querySelectorAll('.qty-input').forEach(input => {
+        input.addEventListener('change', () => updateCart(input.dataset.id, input.value));
+    });
+
+    function changeQty(btn, delta) {
+        const input = btn.parentElement.querySelector('.qty-input');
+        let value = parseInt(input.value) + delta;
+        if (value < 1) value = 1;
+        input.value = value;
+        updateCart(input.dataset.id, value);
+    }
+
+    function updateCart(productId, qty) {
+        fetch('{{ route("cart.update") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrf
+            },
+            body: JSON.stringify({ product_id: productId, qty: qty })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                // Cập nhật subtotal của từng sản phẩm
+                const row = document.querySelector(`tr[data-id="${productId}"]`);
+                const priceSale = parseInt(
+                    row.querySelector('td:nth-child(3)').innerText.replace(/[^\d]/g, '')
+                );
+                const newSubtotal = priceSale * qty;
+                row.querySelector('.subtotal').innerText = newSubtotal.toLocaleString() + '₫';
+
+                // 🧮 Cập nhật phần tóm tắt
+                document.getElementById('cartQuantity').innerText = data.total_qty;
+                document.getElementById('cartSubtotal').innerText = data.subtotal + '₫';
+                document.getElementById('cartTotal').innerText = data.total + '₫';
+
+                showToast('Đã cập nhật giỏ hàng');
+            }
+        });
+    }
+
+    // Hiển thị thông báo nhỏ
+    function showToast(message) {
+        let toast = document.createElement('div');
+        toast.className = 'toast toast-success';
+        toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+});
+</script>
+
 
     </body>
 </html>

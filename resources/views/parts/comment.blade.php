@@ -101,41 +101,7 @@
                                     </div>
 
                         </div>
-                        <div class="rating-features">
-                            <div class="feature-rating">
-                                <span>Chất lượng sách</span>
-                                <div class="feature-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span>4.9</span>
-                                </div>
-                            </div>
-                            <div class="feature-rating">
-                                <span>Nội dung</span>
-                                <div class="feature-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <span>4.8</span>
-                                </div>
-                            </div>
-                            <div class="feature-rating">
-                                <span>Giá cả</span>
-                                <div class="feature-stars">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                    <span>4.2</span>
-                                </div>
-                            </div>
-                        </div>
+                      
                     </div>
                 </div>
                 
@@ -261,7 +227,7 @@
             <div class="products-grid">
                @foreach($products as $product)
                 <div class="product-item" data-product-id="book1" data-price="150000">
-                    <a href="/product/{{$product ->id}}"><img src="{{asset($product ->image)}}" alt="Tấm Cám - Truyện Cổ Tích"><a>
+                    <a href="   "><img src="{{asset($product ->image)}}" alt="Tấm Cám - Truyện Cổ Tích"><a>
                     <h4><a href="/product/{{$product ->id}}">{{$product ->name}}</a></h4>
                     <p style="font-size: 12px">MSP: {{$product ->masanpham}}</p>
                     <div class="price">

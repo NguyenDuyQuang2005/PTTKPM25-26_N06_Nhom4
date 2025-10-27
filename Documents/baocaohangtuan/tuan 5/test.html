@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý Đơn Hàng</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    .status {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .CHO_XU_LY { background: #ffeb3b; }
+    .DA_XAC_NHAN { background: #2196f3; color: white; }
+    .DANG_GIAO { background: #ff9800; color: white; }
+    .DA_HOAN_THANH { background: #4caf50; color: white; }
+    .DA_HUY { background: #f44336; color: white; }
+
+    button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .btn-xacnhan { background: #2196f3; color: white; }
+    .btn-giao { background: #ff9800; color: white; }
+    .btn-hoanthanh { background: #4caf50; color: white; }
+    .btn-huy { background: #f44336; color: white; }
+  </style>
+</head>
+<body>
+  <h2>Trạng thái đơn hàng</h2>
+  <div id="trangThai" class="status CHO_XU_LY">Chờ xử lý</div>
+
+  <div>
+    <button class="btn-xacnhan" onclick="xacNhan()">Xác nhận đơn</button>
+    <button class="btn-giao" onclick="batDauGiao()">Bắt đầu giao</button>
+    <button class="btn-hoanthanh" onclick="hoanThanh()">Hoàn thành</button>
+    <button class="btn-huy" onclick="huy()">Hủy đơn</button>
+  </div>
+
+  <script>
+    let trangThai = "CHO_XU_LY";
+    const trangThaiDiv = document.getElementById("trangThai");
+
+    function capNhatTrangThai(moi) {
+      trangThai = moi;
+      trangThaiDiv.className = "status " + moi;
+      switch (moi) {
+        case "CHO_XU_LY": trangThaiDiv.textContent = "Chờ xử lý"; break;
+        case "DA_XAC_NHAN": trangThaiDiv.textContent = "Đã xác nhận"; break;
+        case "DANG_GIAO": trangThaiDiv.textContent = "Đang giao"; break;
+        case "DA_HOAN_THANH": trangThaiDiv.textContent = "Đã hoàn thành"; break;
+        case "DA_HUY": trangThaiDiv.textContent = "Đã hủy"; break;
+      }
+    }
+
+    function xacNhan() {
+      if (trangThai === "CHO_XU_LY") capNhatTrangThai("DA_XAC_NHAN");
+      else alert("Không thể xác nhận ở trạng thái hiện tại!");
+    }
+
+    function batDauGiao() {
+      if (trangThai === "DA_XAC_NHAN") capNhatTrangThai("DANG_GIAO");
+      else alert("Không thể bắt đầu giao ở trạng thái hiện tại!");
+    }
+
+    function hoanThanh() {
+      if (trangThai === "DANG_GIAO") capNhatTrangThai("DA_HOAN_THANH");
+      else alert("Không thể hoàn thành ở trạng thái hiện tại!");
+    }
+
+    function huy() {
+      if (["CHO_XU_LY", "DA_XAC_NHAN", "DANG_GIAO"].includes(trangThai)) {
+        capNhatTrangThai("DA_HUY");
+      } else {
+        alert("Không thể hủy ở trạng thái hiện tại!");
+      }
+    }
+  </script>
+</body>
+</html>

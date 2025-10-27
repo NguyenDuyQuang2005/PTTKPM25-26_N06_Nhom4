@@ -33,4 +33,23 @@ class orderController extends Controller
         return response()->json(['success'=>true]);
     }
 
+    public function complete_order($id){
+        $order = order::find($id);
+        
+        if (!$order) {
+            return response()->json(['success'=>false, 'message'=>'Đơn hàng không tồn tại']);
+        }
+
+        // Chỉ có thể hoàn thành đơn đã được xác nhận
+        if (!$order->confirmed_at) {
+            return response()->json(['success'=>false, 'message'=>'Đơn hàng chưa được xác nhận']);
+        }
+
+        $order->completed_at = now();
+        $order->trangthai = 2; // 2 = đã hoàn thành
+        $order->save();
+
+        return response()->json(['success'=>true, 'message'=>'Đơn hàng đã được hoàn thành']);
+    }
+
 }

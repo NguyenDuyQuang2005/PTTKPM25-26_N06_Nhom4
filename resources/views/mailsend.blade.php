@@ -48,6 +48,13 @@
         <p>Cảm ơn Quý khách đã tin tưởng và đặt hàng tại <strong>QuangQuocBook</strong>. Chúng tôi đã nhận được đơn hàng của Quý khách và đang tiến hành xử lý.</p>
         <p>Thông tin đơn hàng sẽ được xác nhận và gửi tới Quý khách trong thời gian sớm nhất. Trong quá trình xử lý nếu cần thêm thông tin, chúng tôi sẽ chủ động liên hệ.</p>
         <p>Rất mong Quý khách hài lòng với sản phẩm/dịch vụ của chúng tôi. Việc lựa chọn của Quý khách là niềm vinh hạnh và động lực để chúng tôi nỗ lực phục vụ tốt hơn mỗi ngày.</p>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="{{ url('/order/confirm/' . $token) }}" style="display: inline-block; padding: 15px 40px; background-color: #27ae60; color: #ffffff; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
+                XÁC NHẬN ĐƠN HÀNG
+            </a>
+        </div>
+        
         <p>Trân trọng,<br>
         <strong>QuangQuocBook</strong><br>
         1900 6278 / <a href="mailto:quangquocbook@gmail.com">quangquocbook@gmail.com</a></p>

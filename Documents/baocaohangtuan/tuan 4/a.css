@@ -1,0 +1,29 @@
+.cart, .checkout {
+  width: 300px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #f9f9f9;
+  margin-bottom: 20px;
+}
+.cart h2, .checkout h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+input {
+  display: block;
+  width: 100%;
+  margin: 5px 0;
+  padding: 8px;
+}
+button {
+  padding: 8px 12px;
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background: darkgreen;
+}

@@ -1,6 +1,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MinhLong Book - Cửa hàng sách trực tuyến hàng đầu Việt Nam</title>
+    <title>QuangQuoc Book - Cửa hàng sách trực tuyến hàng đầu Việt Nam</title>
     <meta name="description" content="MinhLong Book - Cửa hàng sách trực tuyến với hàng nghìn đầu sách chất lượng cao. Giao hàng nhanh, giá tốt, dịch vụ chuyên nghiệp.">
     <meta name="keywords" content="sách, mua sách online, sách văn học, sách kinh tế, sách thiếu nhi, MinhLong Book">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">

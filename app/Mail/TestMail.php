@@ -16,7 +16,7 @@ class TestMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public $nameifor)
+    public function __construct(public $nameifor, public $token)
     {
         //
     }

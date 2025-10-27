@@ -1,5 +1,5 @@
  <div class="logo">
-            <img style="width:200px;"src="{{asset('frontend/asset/images/logo.png')}}" alt="Logo">
+<img style="width:130px;"src="{{asset('frontend/asset/images/logo.png')}}" alt="Logo">
         </div>
         <button class="mobile-menu-toggle" id="mobileMenuToggle">
             <span></span>
@@ -22,17 +22,13 @@
                         <li><a href="/category?category=chuyen-nganh">Sách Chuyên Ngành</a></li>
                     </ul>
                 </li>
-                <li><a href="/products" class="menu-main-link">
-                    <i class="fas fa-book"></i>
-                    <span>Tất Cả Sách</span>
-                </a></li>
-                <li><a href="/category" class="menu-main-link">
-                    <i class="fas fa-star"></i>
-                    <span>Sách Mới</span>
+                <li><a class="favorites-link">
+                    <i class="fas fa-truck"></i>
+                    <span> Free Ship Trên Toàn Quốc </span>
                 </a></li>
                 <li><a class="favorites-link">
-                    <i class="fas fa-car"></i>
-                    <span>Ship COD Trên Toàn Quốc </span>
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Uy Tín Làm Nên Thương Hiệu </span>
                 </a></li>
                 <li><a  class="menu-dropdown">
                     <i class="fas fa-phone"></i>
@@ -43,8 +39,10 @@
         <div class="others">
             <ul>
                 <li>
-                    <input placeholder="Tìm kiếm sách...">
-                    <a class="fas fa-search" href="#" title="Tìm kiếm"></a>
+                    <input type="text" name="search" id="timkiem" placeholder="Tìm kiếm sách...">
+                       <ul class="list_group" id="result" style="display:none;">
+                </ul>
+                    
                 </li>
                 <li><a class="fa-solid fa-house" href="/" title="Trang chủ"></a></li>
                 <li><a class="fa-solid fa-user" href="/login" title="Tài khoản"></a></li>
@@ -54,3 +52,61 @@
                 </li>
             </ul>
         </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+let timer;
+
+$("#timkiem").on("keyup", function () {
+    clearTimeout(timer);
+
+    timer = setTimeout(function() {
+        searchBook();
+    }, 300);
+});
+
+function searchBook() {
+    $("#result").html('');
+    let search = $("#timkiem").val().trim();
+
+    if (search === "") {
+        $("#result").hide();
+        return;
+    }
+
+    let expression = new RegExp(search, "i");
+
+    $.getJSON('/json/book.json', function(data) {
+        let found = false;
+
+        $.each(data.data, function (key, value) {
+            let nameMatch = value?.name?.search(expression) !== -1;
+            let codeMatch = value?.id?.toString().search(expression) !== -1;
+
+            if (nameMatch || codeMatch) {
+                found = true;
+                $("#result").append(`
+                    <li onclick="window.location='/product/${value.id}'">
+                        <img src="${value.image}" width="40" height="40">
+                        <div>
+                            <div>${value.name}</div>
+                            <small>${value.masanpham}</small>
+                        </div>
+                    </li>
+                `);
+            }
+        });
+
+        if (found) $("#result").show();
+        else $("#result").hide();
+    });
+}
+
+// Ẩn dropdown khi click ra ngoài
+$(document).click(function(e){
+    if(!$(e.target).closest('.others li').length){
+        $('#result').hide();
+    }
+});
+
+</script>

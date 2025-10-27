@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link red="stylesheet" href="a.css">
+</head>
+<body>
+    <div class="cart">
+  <h2>Giỏ hàng</h2>
+  <ul id="cart-items"></ul>
+  <p>Tổng tiền: <span id="total">0</span> VNĐ</p>
+  <button id="order-btn">Đặt hàng</button>
+</div>
+
+<div class="checkout">
+  <h2>Thông tin giao hàng</h2>
+  <input type="text" placeholder="Họ tên" id="hoTen">
+  <input type="text" placeholder="Địa chỉ" id="diaChi">
+  <input type="text" placeholder="Số điện thoại" id="soDT">
+  <input type="email" placeholder="Email" id="email">
+  <button id="checkout-btn">Xác nhận đơn</button>
+</div>
+</body>
+<script>
+    const cart = new GioHang();
+
+// Test: thêm sách vào giỏ
+const sach1 = new Sach("S01", "HTML & CSS", "Tác giả A", "NXB X", 100000, 10);
+const sach2 = new Sach("S02", "JavaScript", "Tác giả B", "NXB Y", 150000, 5);
+
+cart.themSach(sach1);
+cart.themSach(sach2);
+renderCart();
+
+function renderCart() {
+    const cartItems = document.getElementById("cart-items");
+    const total = document.getElementById("total");
+    cartItems.innerHTML = "";
+    cart.danhSachSach.forEach(item => {
+        let li = document.createElement("li");
+        li.textContent = `${item.tenSach} - ${item.giaBan} VNĐ`;
+        cartItems.appendChild(li);
+    });
+    total.textContent = cart.tinhTongTien();
+}
+
+document.getElementById("order-btn").addEventListener("click", () => {
+    alert("Chuyển sang bước nhập thông tin giao hàng!");
+});
+
+document.getElementById("checkout-btn").addEventListener("click", () => {
+    const hoTen = document.getElementById("hoTen").value;
+    const diaChi = document.getElementById("diaChi").value;
+    const soDT = document.getElementById("soDT").value;
+    const email = document.getElementById("email").value;
+
+    if (hoTen && diaChi && soDT && email) {
+        alert("Đặt hàng thành công cho khách hàng: " + hoTen);
+    } else {
+        alert("Vui lòng nhập đầy đủ thông tin!");
+    }
+});
+
+</script>
+</html>

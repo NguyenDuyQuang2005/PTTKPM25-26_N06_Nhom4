@@ -27,9 +27,20 @@
                         <a class="edit-class" href="/admin/order/details/{{ $order->chitiet }}">Xem</a>
                     </td>
                     <td>{{$order->created_at}}</td>
-                    <td><a class="confirm-oder" href=>Đã Xác Nhận</a></td>
                     <td>
-                        <a onclick="removeRow({{ $order->id }}, '{{ url('admin/order/delete/'.$order->id) }}')"class="delete-class" href="#">Xóa</a>
+                        @if($order->completed_at)
+                            <span class="confirm-oder" style="background-color: #10b981;">Đã Hoàn Thành</span>
+                        @elseif($order->confirmed_at)
+                            <span class="confirm-oder" style="background-color: #3b82f6;">Đã Xác Nhận</span>
+                        @else
+                            <span class="nonconfirm-oder">Chưa Xác Nhận</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($order->confirmed_at && !$order->completed_at)
+                            <a onclick="completeOrder({{ $order->id }})" class="confirm-oder" style="cursor: pointer; background-color: #10b981;">Hoàn Thành</a>
+                        @endif
+                        <a onclick="removeRow({{ $order->id }}, '{{ url('/admin/order/delete/'.$order->id) }}')" class="delete-class" href="#">Xóa</a>
                     </td>
                 </tr>
             @endforeach
@@ -40,7 +51,7 @@
 @section('scripts')
 <script>
 function removeRow(id, url){
-    if(confirm('Ok')){
+    if(confirm('Bạn có chắc muốn xóa đơn hàng này?')){
 
         $.ajax({
             url: url,
@@ -53,6 +64,30 @@ function removeRow(id, url){
                 if(res.success){
                     location.reload();
                 }
+            }
+        })
+    }
+}
+
+function completeOrder(id){
+    if(confirm('Bạn có chắc muốn hoàn thành đơn hàng này?')){
+        $.ajax({
+            url: '/admin/order/complete/' + id,
+            method: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: 'JSON',
+            success: function(res){
+                if(res.success){
+                    alert('Đơn hàng đã được hoàn thành! Revenue sẽ được cập nhật trên Dashboard.');
+                    location.reload();
+                } else {
+                    alert(res.message);
+                }
+            },
+            error: function(){
+                alert('Có lỗi xảy ra khi hoàn thành đơn hàng!');
             }
         })
     }
