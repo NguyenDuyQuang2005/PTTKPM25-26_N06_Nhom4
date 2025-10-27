@@ -587,12 +587,12 @@ Dự án này được phân phối dưới MIT License. Xem file `LICENSE` đ�
 
 ## 👥 Tác giả
 
-- **Developer** - [Tên tác giả]
-
+- **Developer** - [Nguyễn Duy Quang]
+- **Developer** - [Hoàng Văn Độ]
 ## 📞 Liên hệ
 
-- Email: [email@example.com]
-- Project Link: [https://github.com/username/bansachonline]
+- Email: [23010448@st.phenikaa-uni.edu.vn]
+- Project Link: [(https://github.com/NguyenDuyQuang2005/PTTKPM25-26_N06_Nhom4)]
 
 ---
 
