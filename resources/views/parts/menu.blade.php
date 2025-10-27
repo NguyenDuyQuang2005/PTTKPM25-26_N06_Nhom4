@@ -81,7 +81,7 @@ function searchBook() {
 
         $.each(data.data, function (key, value) {
             let nameMatch = value?.name?.search(expression) !== -1;
-            let codeMatch = value?.id?.toString().search(expression) !== -1;
+            let codeMatch = value?.masanpham?.toString().search(expression) !== -1;
 
             if (nameMatch || codeMatch) {
                 found = true;
